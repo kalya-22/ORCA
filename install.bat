@@ -29,3 +29,4 @@ echo   You can now double-click start.bat to launch the application.
 echo ==================================================================
 echo.
 pause
+

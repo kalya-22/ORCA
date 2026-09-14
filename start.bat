@@ -18,3 +18,4 @@ echo Both services are now running in their respective command windows.
 echo You can minimize this window.
 echo.
 pause
+
