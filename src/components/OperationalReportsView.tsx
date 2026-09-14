@@ -38,7 +38,7 @@ export const OperationalReportsView: React.FC<OperationalReportsViewProps> = ({
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `BlueCurrent_Report_${activeReport.type}_${new Date(activeReport.generated_at).toISOString().slice(0, 10)}.json`;
+    a.download = `ORCA_Report_${activeReport.type}_${new Date(activeReport.generated_at).toISOString().slice(0, 10)}.json`;
     a.click();
   };
 

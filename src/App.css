@@ -166,9 +166,9 @@
 }
 
 .nav-link-active {
-  background: rgba(0, 212, 170, 0.08);
-  border: 1px solid rgba(0, 212, 170, 0.2);
-  color: var(--text-primary);
+  background: rgba(14, 165, 233, 0.12);
+  border: 1px solid rgba(14, 165, 233, 0.35);
+  color: #ffffff;
   font-family: var(--font-sans);
   font-size: 0.8rem;
   font-weight: 600;
@@ -177,6 +177,7 @@
   cursor: pointer;
   position: relative;
   white-space: nowrap;
+  box-shadow: 0 0 12px rgba(14, 165, 233, 0.15);
 }
 
 .nav-alert-dot {
@@ -218,9 +219,9 @@
 }
 
 .nav-group-btn-active {
-  background: rgba(0, 212, 170, 0.08);
-  border: 1px solid rgba(0, 212, 170, 0.2);
-  color: var(--text-primary);
+  background: rgba(14, 165, 233, 0.12);
+  border: 1px solid rgba(14, 165, 233, 0.35);
+  color: #ffffff;
   font-family: var(--font-sans);
   font-size: 0.8rem;
   font-weight: 600;
@@ -232,6 +233,7 @@
   display: inline-flex;
   align-items: center;
   gap: 2px;
+  box-shadow: 0 0 12px rgba(14, 165, 233, 0.15);
 }
 
 .nav-group-caret {
@@ -697,23 +699,25 @@
 
 /* ===== BUTTONS ===== */
 .btn-primary {
-  background: var(--accent-teal);
-  border: none;
-  color: #050a14;
-  padding: 10px 20px;
+  background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  color: #ffffff;
+  padding: 9px 18px;
   border-radius: var(--radius-sm);
   font-family: var(--font-sans);
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 700;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  transition: background 0.15s ease, transform 0.15s ease;
+  box-shadow: 0 2px 10px rgba(14, 165, 233, 0.25);
+  transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 .btn-primary:hover {
-  background: #00eabb;
+  background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%);
+  box-shadow: 0 4px 16px rgba(14, 165, 233, 0.4);
   transform: translateY(-1px);
 }
 
@@ -775,15 +779,15 @@
 }
 
 .badge-teal {
-  background: rgba(0, 212, 170, 0.1);
-  color: var(--accent-teal);
-  border: 1px solid rgba(0, 212, 170, 0.25);
+  background: rgba(14, 165, 233, 0.12);
+  color: #38bdf8;
+  border: 1px solid rgba(14, 165, 233, 0.35);
 }
 
 .badge-red {
-  background: rgba(239, 68, 68, 0.1);
+  background: rgba(244, 63, 94, 0.1);
   color: var(--accent-red);
-  border: 1px solid rgba(239, 68, 68, 0.25);
+  border: 1px solid rgba(244, 63, 94, 0.25);
 }
 
 .badge-amber {
@@ -793,9 +797,9 @@
 }
 
 .badge-blue {
-  background: rgba(0, 212, 170, 0.1);
-  color: var(--accent-blue);
-  border: 1px solid rgba(0, 212, 170, 0.25);
+  background: rgba(56, 189, 248, 0.1);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.25);
 }
 
 .badge-purple {

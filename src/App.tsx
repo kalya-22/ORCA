@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import './App.css';
-import logo from './assets/header-logo-themed.png';
+import { BrandLogo } from './components/BrandLogo';
 import { Compass, Plus, Fish, Droplets, Cpu, Activity } from 'lucide-react';
 import { io } from 'socket.io-client';
 import { get } from './api';
@@ -227,8 +227,8 @@ export function App() {
 
       {/* Navigation Header */}
       <nav className="app-nav anim-fade-only">
-        <div className="nav-brand" onClick={() => setCurrentTab('home')}>
-          <img src={logo} alt="BlueCurrent" style={{ height: 82, width: 'auto' }} />
+        <div className="nav-brand">
+          <BrandLogo onClick={() => setCurrentTab('home')} />
         </div>
 
         <div className="nav-links">

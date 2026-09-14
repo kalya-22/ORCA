@@ -8,15 +8,12 @@ interface ChatMessage {
   text: string;
 }
 
-function BlueCurrentMark({ size = 18 }: { size?: number }) {
+function OrcaMark({ size = 18 }: { size?: number }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-label="BlueCurrent">
-      <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.5" opacity="0.4" />
-      <path d="M12 3c-3 4-3 6 0 7" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-      <path d="M12 21c3-4 3-6 0-7" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-      <path d="M3 12h5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-      <path d="M21 12h-5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-      <circle cx="12" cy="12" r="2" fill="currentColor" />
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-label="ORCA">
+      <ellipse cx="12" cy="12" rx="10" ry="4.5" transform="rotate(-28 12 12)" stroke="currentColor" strokeWidth="1.4" strokeDasharray="3 2" opacity="0.6" />
+      <path d="M4 17c3-3 7 1 11-2c3-2 5 1 5 1" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      <path d="M9 16c1-4 3.5-8 7-10.5c-.5 4-1.5 6 1.5 7.5c-1.5 1.5-3.5 2.5-7 3z" fill="currentColor" />
     </svg>
   );
 }
@@ -27,7 +24,7 @@ export const MarineChatbot: React.FC = () => {
     {
       id: '1',
       sender: 'bot',
-      text: 'BlueCurrent Marine Copilot online. Ask me about real-time wave safety, PFZ fisheries, oil spill hazards, or EEZ boundary navigation.',
+      text: 'ORCA Marine Copilot online. Ask me about autonomous PFZ detection, ISRO satellite deliberation, wave safety, or toxic bloom advection.',
     },
   ]);
   const [inputMsg, setInputMsg] = useState<string>('');
@@ -89,14 +86,14 @@ export const MarineChatbot: React.FC = () => {
       <div style={{ padding: '12px 16px', background: 'var(--bg-elevated)', borderBottom: '1px solid var(--border-default)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '9px' }}>
           <div style={{ color: 'var(--accent-teal)' }}>
-            <BlueCurrentMark size={22} />
+            <OrcaMark size={22} />
           </div>
           <div>
             <div style={{ fontWeight: 800, fontSize: '0.85rem', color: 'var(--text-primary)', lineHeight: 1.1 }}>
-              BlueCurrent Copilot
+              ORCA Marine Copilot
             </div>
             <div className="label-caps" style={{ fontSize: '0.58rem', color: chatBusy ? 'var(--accent-amber)' : 'var(--accent-teal)' }}>
-              {chatBusy ? '● SYNTHESIZING TELEMETRY' : '● MULTI-AGENT GROUNDED'}
+              {chatBusy ? '● DELIBERATING SATELLITE SWARM' : '● MULTI-AGENT CONSENSUS ACTIVE'}
             </div>
           </div>
         </div>
@@ -142,7 +139,7 @@ export const MarineChatbot: React.FC = () => {
       <div style={{ padding: '10px 14px', background: 'var(--bg-surface)', borderTop: '1px solid var(--border-default)', display: 'flex', gap: '8px', alignItems: 'center' }}>
         <input
           type="text"
-          placeholder="Ask BlueCurrent marine intelligence…"
+          placeholder="Ask ORCA marine intelligence…"
           value={inputMsg}
           onChange={(e) => setInputMsg(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}

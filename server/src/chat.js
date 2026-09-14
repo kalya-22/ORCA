@@ -42,7 +42,7 @@ export async function handleChat(query) {
   if (!process.env.GROQ_API_KEY) {
     return { 
       source: 'fallback', 
-      reply: `[BlueCurrent Swarm Engine] Request analyzed: "${query}". Live conditions show wave height ~1.8m, wind ~24 km/h → MODERATE CAUTION. For deep ISRO fishing zone reasoning, ask: "Identify a high-yield, safe Potential Fishing Zone (PFZ) near the coast of Gujarat".` 
+      reply: `[ORCA Swarm Engine] Request analyzed: "${query}". Live conditions show wave height ~1.8m, wind ~24 km/h → MODERATE CAUTION. For deep ISRO fishing zone reasoning, ask: "Identify a high-yield, safe Potential Fishing Zone (PFZ) near the coast of Gujarat".` 
     };
   }
 
@@ -52,7 +52,7 @@ export async function handleChat(query) {
   const pfz = db.prepare('SELECT name, yield_pct FROM pfz_zones ORDER BY yield_pct DESC LIMIT 4').all();
 
   const system = [
-    'You are BlueCurrent, an ocean safety and marine intelligence assistant.',
+    'You are ORCA, an autonomous oceanographic reasoning and marine intelligence assistant for the Indian coast (ISRO SIH Challenge 26176).',
     'Answer concisely (2-4 sentences). Be specific and safety-focused.',
     'Use this live data context and reference it where relevant:',
     `Weather: ${JSON.stringify(weather)}`,
@@ -81,12 +81,12 @@ export async function handleChat(query) {
 
     if (!res.ok) {
       console.error('[chat] Groq error:', res.status, data.error?.message || JSON.stringify(data));
-      return { source: 'error', reply: 'BlueCurrent is temporarily offline. Please try again shortly.' };
+      return { source: 'error', reply: 'ORCA is temporarily offline. Please try again shortly.' };
     }
 
     let reply = data.choices?.[0]?.message?.content?.trim();
     if (!reply) {
-      return { source: 'error', reply: 'BlueCurrent received an empty response. Please try again.' };
+      return { source: 'error', reply: 'ORCA received an empty response. Please try again.' };
     }
     // Strip <think>...</think> blocks (Qwen models include reasoning traces)
     // Handle both complete and incomplete/missing closing tags
@@ -98,6 +98,6 @@ export async function handleChat(query) {
     return { source: 'groq', reply };
   } catch (err) {
     console.error('[chat] Groq error:', err.message);
-    return { source: 'error', reply: 'BlueCurrent is temporarily offline. Please try again shortly.' };
+    return { source: 'error', reply: 'ORCA is temporarily offline. Please try again shortly.' };
   }
 }

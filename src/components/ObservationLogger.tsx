@@ -71,7 +71,7 @@ export const ObservationLogger: React.FC<ObservationLoggerProps> = ({
         setSuccessMsg('Observation recorded to Local Offline Queue (will auto-sync upon reconnection).');
       } else {
         await post('/api/alerts', payload);
-        setSuccessMsg('Geotagged observation broadcasted live to the BlueCurrent network!');
+        setSuccessMsg('Geotagged observation broadcasted live to the ORCA network!');
       }
 
       setTimeout(() => {
