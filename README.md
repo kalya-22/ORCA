@@ -46,30 +46,41 @@ Built for **Smart India Hackathon 2026** · Problem Statement **26176 — ORCA**
 
 | | Category | Capabilities |
 |---|---|---|
-| 🗣️ | **Conversational AI** | Marine AI chatbot · Multi-agent status/design view · Explainable AI evidence display |
-| 🗺️ | **Situational Awareness** | Unified interactive marine map · Real-time hazard alert panel · Automatic geotagging |
-| 🐟 | **Fisheries Intelligence** | Potential Fishing Zone (PFZ) recommendations · Fish reproductive-habitat mapping |
-| 🛟 | **Safety & Risk** | Marine safety score · Smart geofencing · Safe-route optimisation |
-| 🛢️ | **Environmental Monitoring** | Oil-spill detection workspace · Underwater debris / sonar-anomaly detection |
-| 🚢 | **Fleet Intelligence** | AIS vessel-correlation workflow |
-| 📡 | **Operations** | Automated operational reports · Low-connectivity / offline-ready mode |
+| 🧠 | **ORCA Multi-Agent Swarm** | 4-Agent Continuous Deliberation (Orchestrator, Geospatial, Physics, Bio-Ecology) · Cross-Agent Conflict Resolution (ISRO Problem 26176) |
+| 🗣️ | **Conversational AI** | Marine AI Copilot · Multi-Agent Reasoning Design View · Ground-Truth Explainable Evidence Chain |
+| 🗺️ | **Situational GIS Map** | 5 Coastal Sectors (Dwarka, Bay of Bengal, Kochi, Gulf of Mannar, All-India) · NIOT / INCOIS Ground-Truth Buoys · Dynamic Drift Vectors |
+| 🐟 | **Fisheries Intelligence** | Potential Fishing Zone (PFZ) recommendations · Marine Habitat & Spawning Protection Zones |
+| 🛟 | **Safety & Risk** | Marine Safety Score · Smart Geofencing · Automated Hazard-Avoidance Routing Corridors |
+| 🛢️ | **Environmental Monitoring** | Oil Spill SAR Workspace · Noctiluca/Dinoflagellate HAB Tracking · Sonar Marine Debris |
+| 🚢 | **Fleet Intelligence** | Live AIS Telemetry Stream (3s updates) · Vessel Route Reconstruction |
+| 📊 | **Operational Reporting** | Differentiated Daily Tactical (24h) & Weekly Strategic (7d) Operations Intelligence Reports · Low-Connectivity Offline Mode |
 
 <br/>
 
-## 🧠 How It Works
+## 🧠 ORCA Multi-Agent Collaborative Architecture (ISRO 26176)
 
 ```mermaid
-flowchart LR
-    A["🗣️ User Query<br/>(Any Indian Language)"] --> B["🧠 Planner /<br/>Orchestrator Agent"]
-    B --> C["🤝 Specialist Agents<br/>Weather · PFZ/Ocean<br/>Geo-Risk · Vessel/AIS"]
-    C --> D["🛰️ Multi-Source<br/>Data Fusion<br/>Satellite EO · AIS · Sonar"]
-    D --> E["💡 Explainable Response<br/>Chat · Map · Alerts"]
+flowchart TD
+    UQ["🗣️ User Query<br/>'Identify safe PFZ near Gujarat Coast'"] --> ORC["🧠 Orchestrator Agent<br/>(Task Decomposition & Consensus Lead)"]
+    
+    ORC --> AG1["🛰️ Geospatial Expert Agent<br/>(INSAT-3D: Thermal Front at 22.2°N, 68.5°E)"]
+    ORC --> AG2["🌊 Physics & Wave Dynamics Agent<br/>(Oceansat-3: Hs 1.2m & Currents 0.3 m/s NE)"]
+    ORC --> AG3["🐟 Bio-Ecological Expert Agent<br/>(OCM-3: Chlorophyll 1.85 mg/m³ + HAB Alert 10km N)"]
+    
+    AG1 --> CON["🔄 Cross-Agent Conflict Resolution<br/>(Physics confirms 0.3 m/s NE current pushes toxic bloom safely away from PFZ)"]
+    AG2 --> CON
+    AG3 --> CON
+    
+    CON --> ORC
+    ORC --> ANS["🎯 Final Actionable Answer<br/>(Safe PFZ Coordinates + Safety Guarantee + Multilingual Broadcast)"]
 
-    style A fill:#065A82,color:#fff,stroke:#00d4aa,stroke-width:1px
-    style B fill:#21295C,color:#fff,stroke:#00d4aa,stroke-width:1px
-    style C fill:#1C7293,color:#fff,stroke:#00d4aa,stroke-width:1px
-    style D fill:#1C7293,color:#fff,stroke:#00d4aa,stroke-width:1px
-    style E fill:#065A82,color:#fff,stroke:#00d4aa,stroke-width:1px
+    style UQ fill:#065A82,color:#fff,stroke:#00d4aa,stroke-width:1px
+    style ORC fill:#21295C,color:#fff,stroke:#00d4aa,stroke-width:2px
+    style AG1 fill:#1C7293,color:#fff,stroke:#00d4aa,stroke-width:1px
+    style AG2 fill:#1C7293,color:#fff,stroke:#00d4aa,stroke-width:1px
+    style AG3 fill:#1C7293,color:#fff,stroke:#00d4aa,stroke-width:1px
+    style CON fill:#a855f7,color:#fff,stroke:#eab308,stroke-width:2px
+    style ANS fill:#065A82,color:#fff,stroke:#00d4aa,stroke-width:2px
 ```
 
 A **Planner Agent** decomposes every query and coordinates specialist agents that independently retrieve and correlate live multi-source marine data — then a synthesis layer builds one explainable, cited response with maps and alerts.

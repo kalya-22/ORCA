@@ -20,7 +20,10 @@ export const OperationalReportsView: React.FC<OperationalReportsViewProps> = ({
   const handleGenerate = async () => {
     setGenerating(true);
     try {
-      await post('/api/reports/generate', { type: genType });
+      const res = await post<{ id: number }>('/api/reports/generate', { type: genType });
+      if (res && res.id) {
+        setSelectedReportId(res.id);
+      }
       onReportGenerated();
     } catch (err) {
       console.error('Failed to generate report', err);
@@ -55,12 +58,12 @@ export const OperationalReportsView: React.FC<OperationalReportsViewProps> = ({
         <div style={{ display: 'flex', gap: '10px' }}>
           <select
             className="select-field"
-            style={{ width: '130px', padding: '6px 10px', fontSize: '0.78rem' }}
+            style={{ width: '140px', padding: '6px 10px', fontSize: '0.78rem' }}
             value={genType}
             onChange={(e) => setGenType(e.target.value as any)}
           >
-            <option value="daily">Daily Ops</option>
-            <option value="weekly">Weekly Ops</option>
+            <option value="daily">Daily Ops (24h)</option>
+            <option value="weekly">Weekly Ops (7d)</option>
           </select>
           <button className="btn-primary" onClick={handleGenerate} disabled={generating}>
             <RefreshCw size={14} className={generating ? 'anim-spin' : ''} />
@@ -69,7 +72,7 @@ export const OperationalReportsView: React.FC<OperationalReportsViewProps> = ({
         </div>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '280px 1fr', gap: '18px', flex: 1, minHeight: 0, overflow: 'hidden' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '300px 1fr', gap: '18px', flex: 1, minHeight: 0, overflow: 'hidden' }}>
         {/* Report History List */}
         <div className="surface-base" style={{ padding: '16px', display: 'flex', flexDirection: 'column', gap: '8px', minHeight: 0, overflow: 'hidden' }}>
           <div className="label-caps" style={{ paddingBottom: '8px', borderBottom: '1px solid var(--border-subtle)', flexShrink: 0 }}>
@@ -79,6 +82,7 @@ export const OperationalReportsView: React.FC<OperationalReportsViewProps> = ({
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '6px', flex: 1, minHeight: 0, overflowY: 'auto' }}>
             {reports.map((rep) => {
               const isSelected = activeReport?.id === rep.id;
+              const isWeekly = rep.type === 'weekly';
               return (
                 <div
                   key={rep.id}
@@ -87,16 +91,17 @@ export const OperationalReportsView: React.FC<OperationalReportsViewProps> = ({
                   style={{
                     padding: '12px 14px',
                     cursor: 'pointer',
-                    borderColor: isSelected ? 'var(--accent-teal)' : undefined,
-                    background: isSelected ? 'rgba(0, 212, 170, 0.08)' : undefined,
+                    borderColor: isSelected ? (isWeekly ? 'var(--accent-purple, #a855f7)' : 'var(--accent-teal)') : undefined,
+                    background: isSelected ? (isWeekly ? 'rgba(168, 85, 247, 0.1)' : 'rgba(0, 212, 170, 0.08)') : undefined,
+                    transition: 'all 0.15s ease',
                   }}
                 >
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span className={`badge ${rep.type === 'weekly' ? 'badge-purple' : 'badge-blue'}`}>
-                      {rep.type.toUpperCase()}
+                    <span className={`badge ${isWeekly ? 'badge-purple' : 'badge-blue'}`}>
+                      {isWeekly ? 'WEEKLY (7D)' : 'DAILY (24H)'}
                     </span>
                     <span style={{ fontSize: '0.68rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>
-                      {new Date(rep.generated_at).toLocaleDateString()}
+                      {new Date(rep.generated_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                     </span>
                   </div>
                   <div style={{ fontWeight: 700, fontSize: '0.85rem', color: 'var(--text-primary)', marginTop: '8px' }}>
@@ -118,9 +123,11 @@ export const OperationalReportsView: React.FC<OperationalReportsViewProps> = ({
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', paddingBottom: '12px', borderBottom: '1px solid var(--border-subtle)', flexShrink: 0 }}>
               <div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <FileText size={20} color="var(--accent-teal)" />
+                  <FileText size={20} color={activeReport.type === 'weekly' ? 'var(--accent-purple, #a855f7)' : 'var(--accent-teal)'} />
                   <h3 style={{ margin: 0, fontSize: '1.25rem', fontWeight: 800 }}>{activeReport.title}</h3>
-                  <span className="badge badge-teal">{activeReport.content.timeframe.toUpperCase()}</span>
+                  <span className={`badge ${activeReport.type === 'weekly' ? 'badge-purple' : 'badge-teal'}`}>
+                    {activeReport.type === 'weekly' ? 'WEEKLY REVIEW (7D)' : 'DAILY TACTICAL (24H)'}
+                  </span>
                 </div>
                 <p style={{ color: 'var(--text-secondary)', fontSize: '0.8rem', marginTop: '6px' }}>
                   Coverage Period: <strong>{activeReport.content.period}</strong> · Compiled: {new Date(activeReport.generated_at).toLocaleString()}

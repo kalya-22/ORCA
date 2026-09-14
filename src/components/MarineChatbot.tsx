@@ -34,6 +34,7 @@ export const MarineChatbot: React.FC = () => {
   const [chatBusy, setChatBusy] = useState<boolean>(false);
 
   const quickPrompts = [
+    { label: '🎯 Gujarat Safe PFZ (ORCA)', text: 'Identify a high-yield, safe Potential Fishing Zone (PFZ) near the coast of Gujarat for tomorrow morning.' },
     { label: 'Wave & Safety Status', text: 'What is our current marine safety score and peak wave condition?' },
     { label: 'Highest Yield PFZ', text: 'Which Potential Fishing Zone has the highest projected yield right now?' },
     { label: 'Oil Spill Risk', text: 'Is there an active oil spill near our navigation corridor?' },

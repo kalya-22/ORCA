@@ -1,15 +1,49 @@
 import { db } from './db.js';
+import { runOrcaPipeline } from './orcaEngine.js';
 
-// Real AI chat via the Groq API (OpenAI-compatible). If GROQ_API_KEY is
-// missing the server still works — it falls back to a smart-ish canned
-// response so the UI never breaks during local development.
-
-const fallbackReply = (query) =>
-  `[Swarm Analysis Engine] Request analyzed: "${query}". Live conditions show wave height ~1.8m, wind ~24 km/h → MODERATE CAUTION. For a fully AI-generated answer, set the GROQ_API_KEY environment variable in server/.env.`;
-
+// Real AI chat via ORCA Multi-Agent Pipeline (ISRO Challenge 26176) with Groq integration.
 export async function handleChat(query) {
+  const qLower = (query || '').toLowerCase();
+  
+  // Check if query is targeting PFZ, Gujarat, Dwarka, fishing zones, or marine biology
+  const isOrcaQuery = qLower.includes('gujarat') || 
+                      qLower.includes('dwarka') || 
+                      qLower.includes('fishing') || 
+                      qLower.includes('pfz') || 
+                      qLower.includes('fish') || 
+                      qLower.includes('algal') || 
+                      qLower.includes('bloom') || 
+                      qLower.includes('thermal front');
+
+  if (isOrcaQuery) {
+    const sectorId = qLower.includes('visakhapatnam') ? 'bob_visakhapatnam' 
+                   : qLower.includes('kochi') || qLower.includes('malabar') ? 'as_kochi'
+                   : qLower.includes('mannar') ? 'gulf_mannar'
+                   : 'gujarat_dwarka';
+
+    const orcaRes = runOrcaPipeline(sectorId, query);
+    const ans = orcaRes.final_actionable_answer;
+    const cr = orcaRes.conflict_resolution;
+    const bCast = orcaRes.advisory.fisherman_broadcast.te_ta_hi_gu;
+
+    const formattedReply = [
+      `[ORCA Multi-Agent Swarm] ${ans.headline}`,
+      `📍 Location: ${ans.location}`,
+      `🔍 Ecological Reason: ${ans.why}`,
+      `🌊 Dynamics & Safety: ${ans.safety_status}`,
+      `🔄 Consensus & Conflict Resolution: ${cr.the_solution}`,
+      `🐟 Species: ${ans.target_species}`,
+      `📻 Regional Broadcast: "${bCast}"`
+    ].join('\n\n');
+
+    return { source: 'orca_multi_agent', reply: formattedReply };
+  }
+
   if (!process.env.GROQ_API_KEY) {
-    return { source: 'fallback', reply: fallbackReply(query) };
+    return { 
+      source: 'fallback', 
+      reply: `[BlueCurrent Swarm Engine] Request analyzed: "${query}". Live conditions show wave height ~1.8m, wind ~24 km/h → MODERATE CAUTION. For deep ISRO fishing zone reasoning, ask: "Identify a high-yield, safe Potential Fishing Zone (PFZ) near the coast of Gujarat".` 
+    };
   }
 
   // Pull a compact live context snapshot so the model answers from real data.

@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { db } from './db.js';
 import { handleChat } from './chat.js';
+import { runOrcaPipeline, getOrcaSectors } from './orcaEngine.js';
 
 export const api = Router();
 
@@ -336,6 +337,7 @@ api.get('/reports', (_req, res) => {
 
 api.get('/reports/:id', (req, res) => {
   const r = db.prepare('SELECT * FROM reports WHERE id = ?').get(req.params.id);
+
   if (!r) return res.status(404).json({ error: 'report not found' });
   res.json({ ...r, content: json(r.content) });
 });
@@ -373,3 +375,15 @@ api.get('/spills/analysis', (_req, res) => {
 api.get('/agents/evidence', (_req, res) =>
   res.json(db.prepare('SELECT * FROM agent_evidence').all())
 );
+
+// ---- ORCA Multi-Agent Engine (ISRO Challenge 26176) ----
+api.get('/orca/sectors', (_req, res) => {
+  res.json({ sectors: getOrcaSectors() });
+});
+
+api.post('/orca/deliberate', (req, res) => {
+  const { sector_id = 'gujarat_dwarka', query = '' } = req.body || {};
+  const result = runOrcaPipeline(sector_id, query);
+  res.json(result);
+});
+
