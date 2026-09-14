@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "install:all": "npm install && cd server && npm install && cd ..",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
