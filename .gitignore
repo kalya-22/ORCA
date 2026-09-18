@@ -61,3 +61,8 @@ pnpm-debug.log*
 # --- Vite / TypeScript cache ---
 *.tsbuildinfo
 .vite/
+
+# --- Presentation & Hackathon Pitch decks (Local only) ---
+*.pptx
+ORCA_SIH_Round2_Presentation.*
+build_sih_*.py
