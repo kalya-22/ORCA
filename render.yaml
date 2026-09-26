@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: orca-marine-platform
+    env: node
+    plan: free
+    buildCommand: npm run render-build
+    startCommand: npm start
+    envVars:
+      - key: GROQ_API_KEY
+        sync: false
